@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Informe a quantidade de energia de naruto: <input type="text" id="in_energia">
+    <br>
+    Informe a quantidade de clones desejada: <input type="text" id="in_qtd_clone">
+    <br>
+    Informe quantos clones deve aparecer por linha: <input type="text" id="in_qtd_linha">
+    <br><br>
+    <button onclick="criar()">Criar clones</button>
+    <div id="div_resultado"></div>
+
+</body>
+
+</html>
+<script>
+    function criar() {
+        var energia = Number(in_energia.value)
+        var quantidadeClone = Number(in_qtd_clone.value)
+        var quantidadeLinha = Number(in_qtd_linha.value)
+        var sobraEnergia = energia - (quantidadeClone * 20)
+        var percentual = (sobraEnergia / energia) * 100
+        var frase
+        var naruto = `<img src="https://preview.redd.it/tudjq02jost71.jpg?auto=webp&s=ed558eeba8ee7c136febe2cd0084d2ab3661b9eb
+    " alt="" width="50px">`
+        var contador = 1
+        var invalido = energia < 20 || energia > 5000 || quantidadeClone < 0 || quantidadeClone > 250 || quantidadeLinha < 0
+
+        if (invalido) {
+            alert(`ERRO NA ENTRADA DE DADOS – Energia tem que ser entre 20 e 5.000. Quantidade de Clones tem que ser entre 0 e 250. Quantidade de Clones por linha tem que ser maior que 0`)
+        } else if (energia < (quantidadeClone * 20)) {
+            alert(`A energia não é suficiente para criar essa quantidade de clones`)
+        } else {
+            div_resultado.innerHTML = ``
+            while (contador <= quantidadeClone) {
+
+                contador % quantidadeLinha == 0 ? div_resultado.innerHTML += `${naruto} <br>` : div_resultado.innerHTML += `${naruto}`
+
+                contador++
+            }
+        }
+        div_resultado.innerHTML += ` <h2>ANÁLISE DA GERAÇÃO DE CLONES</h2><br>`
+        div_resultado.innerHTML += `Energia inicial: ${energia}<br>`
+        div_resultado.innerHTML += `Qtde clones: ${quantidadeClone}<br>`
+        div_resultado.innerHTML += `Sobra de energia: ${sobraEnergia}<br>`
+
+        if (sobraEnergia > 1000 || quantidadeClone > 50 && percentual > 20) {
+            frase = `PROVAVELMENTE VOCE VAI GANHAR`
+        } else if (sobraEnergia > 500 || quantidadeClone > 20 && quantidadeClone < 50 && percentual > 10) {
+            frase = `A LUTA VAI SER MUITO BOA`
+        } else {
+            frase = `TORÇA PARA O ADVERSÁRIO SER FRAQUINHO`
+        }
+        div_resultado.innerHTML += frase
+    }
+</script>
